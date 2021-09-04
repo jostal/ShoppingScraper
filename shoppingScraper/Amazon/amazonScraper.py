@@ -4,7 +4,6 @@ from selenium.common.exceptions import NoSuchElementException
 from selectorlib import Extractor
 import requests
 import json
-import time
 
 
 def searchAmazon(product):
@@ -21,14 +20,14 @@ def searchAmazon(product):
     except NoSuchElementException:
         numPages = driver.find_element_by_class_name('a-last').click()
         driver.implicitly_wait(3)
-    
+
     #Iterate through all existing result pages and grab links
     urls = []
     for i in range(int(numPages.text)):
         pageCur = i + 1
         urls.append(driver.current_url)
         driver.implicitly_wait(5)
-        clickNext = driver.find_element_by_class_name('a-last').click()
+        clickNext = driver.find_element_by_xpath('//*[@class="a-pagination"]/li[7]').click()
         print("Page " + str(pageCur) + " grabbed")
     driver.quit()
 
@@ -74,7 +73,7 @@ searchAmazon('bikes')
 e = Extractor.from_yaml_file('searchResults.yaml')
 
 # product_data = []
-with open("searchResultsURLs.txt",'r') as urllist, open('searchResultsOutput.jsonl','w') as outfile:
+with open("searchResultsURLs.txt",'r') as urllist, open('searchResultsOutput.json','w') as outfile:
     for url in urllist.read().splitlines():
         data = scrape(url)
         if data:

@@ -1,0 +1,18 @@
+products:
+    css: 'div[itemtype="http://schema.org/Product"]'
+    xpath: null
+    multiple: true
+    type: Text
+    children:
+        title:
+            css: 'div[data-automation="productItemName"]'
+            xpath: null
+            type: Text
+        url:
+            css: null
+            xpath: '//div[@class="col-xs-12_198le col-sm-4_13E9O col-lg-3_ECF8k x-productListItem productLine_2N9kG"]//div//a'
+            type: Link
+        price:
+            css: 'div[class=productPricingContainer_3gTS3] span div'
+            xpath: null
+            type: Text
